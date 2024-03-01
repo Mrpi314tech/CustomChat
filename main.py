@@ -4,9 +4,6 @@ print('Starting up Jimbot... may take a moment')
 import time
 import os
 import random
-import numpy as np
-import subprocess
-import smbus
 from datetime import datetime as dt
 import requests
 import json
@@ -45,8 +42,6 @@ elif hur<=11:
     backgn=file_location+"/Jimbot/images/backgroundm.jpg"
 else:
     backgn=file_location+"/Jimbot/images/background.jpg"
-# Test
-print('hello')
 # Set up simple phrases
 chatlist=['I can do many things to help out. Just ask me!','Press edit to customize me to your needs', 'if you want to play a game, just ask me!','what is your favorite color?', "what are you doing today?", 'what is your favorite food?', 'Tell me about yourself.',"What's your favorite thing to do in your free time?",    "Have you traveled anywhere recently? Where did you go?",    "What's your favorite type of music?",    "Do you have any hobbies that you enjoy?",    "What do you like to do on the weekends?"]  
 # define variables for determining mood
@@ -559,12 +554,9 @@ def rockpaper():
     screen('Rock paper scissors!')
     time.sleep(1)
     screen('what is your throw?')
-    with sr.Microphone() as source:
-        r.adjust_for_ambient_noise(source)
-        audio=r.listen(source)
-        humanthrow=r.recognize_google(audio)
-        hand=[1,2,3] #1=rock, 2= paper, 3=scissors
-        throw=random.choice(hand)
+    humanthrow=input(': ')
+    hand=[1,2,3] #1=rock, 2= paper, 3=scissors
+    throw=random.choice(hand)
     if 'rock' in humanthrow or 'Rock' in humanthrow:
         if throw == 1:
             screen('rock, tie')
@@ -670,15 +662,10 @@ def ntime():
     if second <= 9:
         second="0"+str(minute)
     print(str(hour)+":"+str(minute)+":"+str(second))
-    speak(str(hour)+":"+str(minute))
 # Find any bible verse from an API
 def bible():
     screen('what verse?')
-    with sr.Microphone() as source:
-        r.adjust_for_ambient_noise(source)
-        print('...')
-        audio=r.listen(source)
-        verse=r.recognize_google(audio)
+    verse=input(': ')
     screen(verse)
     response = requests.get("https://bible-api.com/"+verse)
     try:
