@@ -1,8 +1,29 @@
-<h1>CustomChat</h1>
-CustomChat is an AI chatbot that is easily customizable. It has the Jimbot AI built in, and is customizable for whatever tasks you need. It can easily be run in an online compiler, or run locally. For information about the AI, go to https://jb.mrpi314.com/ai.
-<h2>Customization</h2>
-To create your own chatbot for your own purposes, you can change the name and add in keywords. Click the file called "Name" and change the name to whatever you want. To add your own keywords, type "edit" into CustomChat, and follow the instructions.
-<h2>Capabilities</h2>
-CustomChat can be configured to open websites, files, and to run commands. It can also be configured with a certain reply to a keyword.
-<br>
-CustmoChat has web scraping capabilities, and can answer general questions by scraping google. CustomChat also has access to the command line, and you can run commands by typing "run" and then the command.
+# CustomChat
+
+CustomChat is an easily customizable AI chatbot powered by Jimbot AI. Whether you're running it on an online compiler or locally, CustomChat empowers you to tailor it to your specific needs.
+
+## Customization
+
+Tailoring CustomChat to your requirements is a breeze. You can personalize the chatbot's name and incorporate keywords to suit your preferences. Simply access the "Name" file and modify it with your desired name. Additionally, to integrate your own keywords, initiate CustomChat and input "edit" to follow the prompts.
+
+## Restrictions
+
+CustomChat offers flexibility in managing permissions. Should you wish to impose restrictions, such as prohibiting users from executing commands, you can effortlessly adjust settings in the configuration file. By toggling values from True to False, you can define the level of access granted to users.
+
+## Capabilities
+
+CustomChat boasts an array of functionalities to enhance user experience:
+
+- **Website and File Access:** Configure CustomChat to open websites and files as per your requirements.
+- **Command Execution:** Enable CustomChat to execute commands, providing seamless interaction.
+- **Keyword-based Responses:** Customize CustomChat to deliver specific responses based on designated keywords.
+
+Moreover, CustomChat's capabilities extend to:
+
+- **Web Scraping:** Leveraging web scraping capabilities, CustomChat can retrieve information from various online sources.
+- **General Knowledge:** Accessing Google through web scraping, CustomChat can provide answers to general inquiries.
+- **Command Line Integration:** With access to the command line, CustomChat enables users to execute commands effortlessly by typing "run" followed by the desired command.
+
+For further information about the AI powering CustomChat, visit [Jimbot AI](https://jb.mrpi314.com/ai).
+
+Enhance your chatbot experience with CustomChat's versatility and adaptability.
