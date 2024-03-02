@@ -1,5 +1,8 @@
-print("Made by Mrpi314tech programming")
-print('Starting up Jimbot... may take a moment')
+namef = open("Name", "r")
+name=namef.read()
+name=name.split('\n')[0]
+namef.close()
+print('Welcome to '+name+'\n')
 # Import modules
 import time
 import os
@@ -14,9 +17,8 @@ chatlist=['I can do many things to help out. Just ask me!','Press edit to custom
 data=[]
 jsaid=[]
 mood=1
-# Import information from survey
+# Ask your name
 your_name = input('Please tell me your name: ')
-name="Bot"
 # Simple grammar
 verb="act answer approve arrange break build buy color cough create complete cry dance describe draw drink eat edit enter exit imitate invent jump laugh lie listen paint plan play read replace run scream see shop shout sing skip sleep sneeze solve study teach touch turn walk win write whistle yank zip concern decide dislike doubt feel forget hate hear hope impress know learn like look love mind notice own perceive realize recognize remember see smell surprise please prefer promise think understand am appear are be become been being feel grow is look remain seem smell sound stay taste turn was were can could may might must ought to shall should will would"
 notnoun="for and nor but or yet so a an the and do I he him her tell we they it who what where when why how me she you my"+verb.lower()
@@ -292,7 +294,7 @@ def question(qstn):
     elif crsponce[0] == 'and how are you?' and 'great' in qstn or crsponce[0] == 'and how are you?' and ' good' in qstn and crsponce[0] == 'and how are you?' and 'fine' in qstn:
         screen('that is very good')
         moodometer=[1,2,3]
-    elif crsponce[0] == "What's your favorite type of music?" and 'music' in qstn:
+    elif crsponce[0] == "What's your favorite type of music?" and 'music' in qstn or 'jazz' in qstn:
         if 'jazz' in qstn:
             screen("That's mine too!")
         else:
@@ -316,9 +318,6 @@ def question(qstn):
     elif 'you' in qstn and 'said' in qstn:
         screen("no I didn't")
         moodometer=[1,2,3,4]
-    elif 'timer' in qstn:
-        os.system('~/Jimbot/Bash/Jimbotterminal python3 ~/Jimbot/Python/skills/timer.py &')
-        moodometer=[1,2,3]
     elif 'run' in qstn or 'open' in qstn:
         if 'open' in qstn:
             qstn=qstn.replace('open ', 'run ')
@@ -515,9 +514,6 @@ def question(qstn):
     elif "correct" in qstn and "you" in qstn and "are" in qstn or qstn == "correct":
         screen("I know")
         moodometer=[1,2,3,4]
-    elif 'what' in qstn and 'your' in qstn:
-        screen("I'm not sure I have one")
-        moodometer=[1,2,3,4]
     elif 'Bible' in qstn or 'verse' in qstn:
         bible()
         moodometer=[1,2,3,4,5]
@@ -527,6 +523,9 @@ def question(qstn):
     elif 'are you' in qstn or 'your name' in qstn:
         screen('I am '+name)
         moodometer=[1,2,3,4,4,5]
+    elif 'what' in qstn and 'your' in qstn:
+        screen("I'm not sure I have one")
+        moodometer=[1,2,3,4]
     elif 'what' in qstn and not 'whatever' in qstn or 'how' in qstn or'when' in qstn or 'who' in qstn or 'why' in qstn:
         screen('Searching...')
         try:
@@ -557,7 +556,7 @@ def question(qstn):
         while True:
             try:
                 if not wverb[nnfco] in notnoun:
-                    screen('I do not know what '+wverb[nnfco]+' means, or how that relates to teh conversation.')
+                    screen('I do not know what '+wverb[nnfco]+' means, or how that relates to the conversation.')
                     break
                 else:
                     nnfco+=1
