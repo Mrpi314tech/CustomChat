@@ -6,42 +6,8 @@ import os
 import random
 from datetime import datetime as dt
 import requests
-import json
-import sys
 # Find username and ip
 file_location=os.path.expanduser('~')
-# Set up clock
-hur=int(dt.now().strftime("%H"))
-minits=int(dt.now().strftime("%M"))
-if hur >= 12:
-    if hur == 12:
-        if minits <= 9:
-            currentTime = str(hur)+":0"+str(minits)+" PM"
-        else:
-            currentTime = str(hur)+":"+str(minits)+" PM"
-    elif minits <= 9:
-        currentTime = str(hur-12)+":0"+str(minits)+" PM"
-    else:
-        currentTime = str(hur-12)+":"+str(minits)+" PM"
-else:
-    if minits <= 9:
-        currentTime = str(hur)+":0"+str(minits)+" AM"
-    else:
-        currentTime = str(hur)+":"+str(minits)+" AM"
-if hur >= 5 and hur <= 11:
-    tofdy="Good morning"
-elif hur >= 12 and hur <= 16:
-    tofdy="Good afternoon"
-elif hur >= 17 and hur <= 22:
-    tofdy="Good evening"
-else:
-    tofdy="Go to bed"
-if hur >=18 or hur<=6:
-    backgn=file_location+"/Jimbot/images/backgroundn.jpg"
-elif hur<=11:
-    backgn=file_location+"/Jimbot/images/backgroundm.jpg"
-else:
-    backgn=file_location+"/Jimbot/images/background.jpg"
 # Set up simple phrases
 chatlist=['I can do many things to help out. Just ask me!','Press edit to customize me to your needs', 'if you want to play a game, just ask me!','what is your favorite color?', "what are you doing today?", 'what is your favorite food?', 'Tell me about yourself.',"What's your favorite thing to do in your free time?",    "Have you traveled anywhere recently? Where did you go?",    "What's your favorite type of music?",    "Do you have any hobbies that you enjoy?",    "What do you like to do on the weekends?"]  
 # define variables for determining mood
@@ -49,8 +15,8 @@ data=[]
 jsaid=[]
 mood=1
 # Import information from survey
-your_name = "Mrpi314"
-name="Jimbot"
+your_name = input('Please tell me your name: ')
+name="Bot"
 # Simple grammar
 verb="act answer approve arrange break build buy color cough create complete cry dance describe draw drink eat edit enter exit imitate invent jump laugh lie listen paint plan play read replace run scream see shop shout sing skip sleep sneeze solve study teach touch turn walk win write whistle yank zip concern decide dislike doubt feel forget hate hear hope impress know learn like look love mind notice own perceive realize recognize remember see smell surprise please prefer promise think understand am appear are be become been being feel grow is look remain seem smell sound stay taste turn was were can could may might must ought to shall should will would"
 notnoun="for and nor but or yet so a an the and do I he him her tell we they it who what where when why how me she you my"+verb.lower()
@@ -58,12 +24,7 @@ notnoun="for and nor but or yet so a an the and do I he him her tell we they it 
 def speak(txt):
   print(txt)
 # Google Search
-try:
-    from bs4 import BeautifulSoup
-except ModuleNotFoundError:
-    screen('installing new libraries')
-    os.system('pip install beautifulsoup4')
-    exit()
+from bs4 import BeautifulSoup
 import re
 pattern = r'([a-zA-Z])(\d)'
 pattern2 = r'([a-z])([A-Z])'
@@ -149,25 +110,155 @@ def google_search(url):
 # What he is doing today
 def gtdt():
     screen('I am computing your input')
+# Edit function
+def edit():
+    global aword
+    global acom
+    file_location=os.path.expanduser('~')
+    print('note: if using quotes, use single quotes')
+    nwordl=aword.word
+    ndefl=aword.defi
+    nwcoml=acom.word
+    nrunl=acom.com
+    qstn=input(" are you adding a command, file, words, website, or would you like to remove words? ")
+    qstn=qstn.lower()
+    if 'com' in qstn or 'Com' in qstn:
+        kwordc=input("what is the keyword? (what do you want to say to run the command?)").lower()
+        outputc=input("what command do you want to run?")
+        outc='os.system("'+outputc+'")'
+        nwcoml.append(kwordc.lower())
+        nrunl.append(outputc)
+        file1 = open("new_com.py", "w")
+        file1.write("word="+str(nwcoml)+"\ncom="+str(nrunl))
+        file1.close()
+    elif 'wor' in qstn or 'Wor' in qstn:
+        kwordw=input("what is the keyword? (what do YOU want to say so that the bot says this?)").lower()
+        outputw=input("what do you want HIM to say?")
+        nwordl.append(kwordw.lower())
+        ndefl.append(outputw)
+        file1 = open("new_words.py", "w")
+        file1.write("word="+str(nwordl)+"\ndefi="+str(ndefl))
+        file1.close()
+    elif 'fil' in qstn or 'Fil' in qstn:
+        kwordc=input("what is the keyword? (what do you want to say to open the file?)").lower()
+        outputc=input("what is the file location?")
+        outc='xdg-open '+outputc
+        nwcoml.append(kwordc)
+        nrunl.append(outc)
+        file1 = open("new_com.py", "w")
+        file1.write("word="+str(nwcoml)+"\ncom="+str(nrunl))
+        file1.close()
+    elif 'web' in qstn:
+        kwordc=input("what is the keyword? (what do you want to say to open the website?)").lower()
+        outputc=input("what is the url?")
+        outc='os.system("'+outputc+'")'
+        nwcoml.append(kwordc.lower())
+        if 'http' in outputc:
+            outputc='xdg-open '+outputc
+        else:
+            outputc='xdg-open http://'+outputc
+        nrunl.append(outputc)
+        file1 = open("new_com.py", "w")
+        file1.write("word="+str(nwcoml)+"\ncom="+str(nrunl))
+        file1.close()
+    elif 'rem' in qstn:
+        print('here is a list of the words: ')
+        seelist=0
+        while True:
+            try:
+                print(nwordl[seelist]+" -- "+ndefl[seelist])
+                seelist+=1
+            except IndexError:
+                break
+        seelist=0
+        while True:
+            try:
+                print(nwcoml[seelist]+" -- "+nrunl[seelist])
+                seelist+=1
+            except IndexError:
+                break
+        removew=input("what word/command are you removing? ")
+        seelist=0
+        while True:
+            try:
+                if nwordl[seelist]==removew:
+                    print(nwordl[seelist])
+                    nwordl.remove(nwordl[seelist])
+                    ndefl.remove(ndefl[seelist])
+                    file1 = open(file_location+"new_words.py", "w")
+                    file1.write("word="+str(nwordl)+"\ndefi="+str(ndefl))
+                    file1.close()
+                    break
+                else:
+                    seelist+=1
+            except IndexError:
+                seelist=0
+                while True:
+                    try:
+                        if nwcoml[seelist]==removew:
+                            nwcoml.remove(nwcoml[seelist])
+                            nrunl.remove(nrunl[seelist])
+                            file1 = open("new_com.py", "w")
+                            file1.write("word="+str(nwcoml)+"\ncom="+str(nrunl))
+                            file1.close()
+                            break
+                        else:
+                            seelist+=1
+                    except IndexError:
+                        print('word/command not found!')
+                        break
+                break
 # Chatbot function.
+import new_words as aword
+import new_com as acom
+nwcoml=acom.word
+nrunl=acom.com
+nwordl=aword.word
+ndefl=aword.defi
 def question(qstn):
     global data
     global crsponce
-    global ndef
-    global nword
+    global ndefl
+    global nwordl
     global file_location
     qstn=qstn.lower()
     qstn=qstn.replace('@ ', '')
     global notnoun
     wverb=qstn.split(" ")
     snfv=0
-    aantt=0        
+    aantt=0
+    while True:
+        try:
+            if nwordl[aantt] in qstn.lower():
+                screen(ndefl[aantt])
+                return
+            else:
+                aantt+=1
+        except IndexError:
+            aantt=0
+            while True:
+                try:
+                    if nwcoml[aantt] in qstn.lower():
+                        print("command... ")
+                        os.system(nrunl[aantt]+ "&")
+                        time.sleep(3)
+                        return
+                        break
+                    else:
+                        aantt+=1
+                except IndexError:
+                    break
+            break
+        moodometer=[1,2,3,4,6]
     if 'spell' in qstn:
         try:
             htspl=qstn.split('spell ')
             spell(htspl[1])
         except:
             pass
+        moodometer=[1,2,3,4,6]
+    if qstn == 'edit':
+        edit()
         moodometer=[1,2,3,4,6]
     elif 'you' in qstn and 'doing' in qstn and 'what' in qstn:
         gtdt()
@@ -325,7 +416,6 @@ def question(qstn):
         moodometer=[1,2,3,4,4,4,4,4,4,5]
     elif 'me too' in qstn or 'me also' in qstn:
         print(':)')
-        speak('smiles')
         moodometer=[1,2,3,4,4,4,4,4,4,4,4]
     elif 'chance' in qstn and 'no' in qstn or 'way' in qstn and 'no' in qstn:
         screen('It could\nhappen')
@@ -384,7 +474,6 @@ def question(qstn):
         moodometer=[1,2,3,4,4,4,4,4,4,4,4,4,4]
     elif 'your welcome' in qstn:
         print(':)')
-        speak('smiles')
         moodometer=[1,2,3,4,4,4,4,4,4,4,4]
     elif 'your cool' in qstn or 'you too' in qstn:
         print(':)')
@@ -435,6 +524,9 @@ def question(qstn):
     elif qstn == "oh":
         screen('yep')
         moodometer=[1,2,3,4,5]
+    elif 'are you' in qstn or 'your name' in qstn:
+        screen('I am '+name)
+        moodometer=[1,2,3,4,4,5]
     elif 'what' in qstn and not 'whatever' in qstn or 'how' in qstn or'when' in qstn or 'who' in qstn or 'why' in qstn:
         screen('Searching...')
         try:
@@ -448,9 +540,6 @@ def question(qstn):
     elif qstn == 'no' or 'no ' in qstn:
         screen('ok')
         moodometer=[1,2,3,4]
-    elif 'are you' in qstn or 'your name' in qstn:
-        screen('I am '+name)
-        moodometer=[1,2,3,4,4,5]
     elif 'i like' in qstn:
         screen('oh')
         moodometer=[1,2,3,4]
