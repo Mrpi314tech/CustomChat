@@ -318,7 +318,7 @@ def question(qstn):
     elif 'you' in qstn and 'said' in qstn:
         screen("no I didn't")
         moodometer=[1,2,3,4]
-    elif 'run' in qstn or 'open' in qstn:
+    elif 'run ' in qstn and qstn.split('run ')[0] == '' or 'open ' in qstn and qstn.split('open ')[0] == '':
         if 'open' in qstn:
             qstn=qstn.replace('open ', 'run ')
         if '/' in qstn:
