@@ -1,14 +1,20 @@
-namef = open("Name", "r")
-name=namef.read()
-name=name.split('\n')[0]
-namef.close()
-print('Welcome to '+name+'\n')
+
 # Import modules
 import time
 import os
 import random
 from datetime import datetime as dt
 import requests
+# Get cwd
+cwd=os.path.dirname(os.path.realpath(__file__))
+cwd=cwd+'/'
+print(cwd)
+# Get name
+namef = open(cwd+"Name", "r")
+name=namef.read()
+name=name.split('\n')[0]
+namef.close()
+print('Welcome to '+name+'\n')
 # Find username and ip
 file_location=os.path.expanduser('~')
 # Set up simple phrases
@@ -130,7 +136,7 @@ def edit():
         outc='os.system("'+outputc+'")'
         nwcoml.append(kwordc.lower())
         nrunl.append(outputc)
-        file1 = open("new_com.py", "w")
+        file1 = open(cwd+"new_com.py", "w")
         file1.write("word="+str(nwcoml)+"\ncom="+str(nrunl))
         file1.close()
     elif 'wor' in qstn or 'Wor' in qstn:
@@ -138,7 +144,7 @@ def edit():
         outputw=input("what do you want HIM to say?")
         nwordl.append(kwordw.lower())
         ndefl.append(outputw)
-        file1 = open("new_words.py", "w")
+        file1 = open(cwd+"new_words.py", "w")
         file1.write("word="+str(nwordl)+"\ndefi="+str(ndefl))
         file1.close()
     elif 'fil' in qstn or 'Fil' in qstn:
@@ -147,7 +153,7 @@ def edit():
         outc='xdg-open '+outputc
         nwcoml.append(kwordc)
         nrunl.append(outc)
-        file1 = open("new_com.py", "w")
+        file1 = open(cwd+"new_com.py", "w")
         file1.write("word="+str(nwcoml)+"\ncom="+str(nrunl))
         file1.close()
     elif 'web' in qstn:
@@ -160,7 +166,7 @@ def edit():
         else:
             outputc='xdg-open http://'+outputc
         nrunl.append(outputc)
-        file1 = open("new_com.py", "w")
+        file1 = open(cwd+"new_com.py", "w")
         file1.write("word="+str(nwcoml)+"\ncom="+str(nrunl))
         file1.close()
     elif 'rem' in qstn:
@@ -187,7 +193,7 @@ def edit():
                     print(nwordl[seelist])
                     nwordl.remove(nwordl[seelist])
                     ndefl.remove(ndefl[seelist])
-                    file1 = open(file_location+"new_words.py", "w")
+                    file1 = open(cwd+"new_words.py", "w")
                     file1.write("word="+str(nwordl)+"\ndefi="+str(ndefl))
                     file1.close()
                     break
@@ -200,7 +206,7 @@ def edit():
                         if nwcoml[seelist]==removew:
                             nwcoml.remove(nwcoml[seelist])
                             nrunl.remove(nrunl[seelist])
-                            file1 = open("new_com.py", "w")
+                            file1 = open(cwd+"new_com.py", "w")
                             file1.write("word="+str(nwcoml)+"\ncom="+str(nrunl))
                             file1.close()
                             break
