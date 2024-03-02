@@ -2,6 +2,27 @@
 
 CustomChat is an easily customizable AI chatbot powered by Jimbot AI. Whether you're running it on an online compiler or locally, CustomChat empowers you to tailor it to your specific needs.
 
+## Installation
+
+To install CustomChat, follow these steps:
+
+1. Clone the repository to your local machine:
+   <pre><code>git clone https://github.com/Mrpi314tech/CustomChat</code></pre>
+
+2. Navigate to the CustomChat directory:
+   <pre><code>cd CustomChat</code></pre>
+   
+3. Run the code:
+   <pre><code>python3 main.py</code></pre>
+
+   This will start CustomChat and you can begin customizing it for your needs.
+
+### Requirements
+
+CustomChat requires the following Python libraries:
+- `bs4` (Beautiful Soup): For web scraping capabilities.
+- `requests` For making HTTP requests.
+
 ## Customization
 
 Tailoring CustomChat to your requirements is a breeze. You can personalize the chatbot's name and incorporate keywords to suit your preferences. Simply access the "Name" file and modify it with your desired name. Additionally, to integrate your own keywords, initiate CustomChat and input "edit" to follow the prompts.
