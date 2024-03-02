@@ -223,6 +223,10 @@ nwcoml=acom.word
 nrunl=acom.com
 nwordl=aword.word
 ndefl=aword.defi
+import configuration as config
+cmd=config.Command_Line
+webscrape=config.Web_Scrape
+edit_allow=config.Edit
 def question(qstn):
     global data
     global crsponce
@@ -235,6 +239,8 @@ def question(qstn):
     wverb=qstn.split(" ")
     snfv=0
     aantt=0
+    global cmd
+    global webscrape
     while True:
         try:
             if nwordl[aantt] in qstn.lower():
@@ -266,7 +272,10 @@ def question(qstn):
             pass
         moodometer=[1,2,3,4,6]
     if qstn == 'edit':
-        edit()
+        if edit_allow == True:
+            edit()
+        else:
+            print('Editing is locked')
         moodometer=[1,2,3,4,6]
     elif 'you' in qstn and 'doing' in qstn and 'what' in qstn:
         gtdt()
@@ -325,33 +334,36 @@ def question(qstn):
         screen("no I didn't")
         moodometer=[1,2,3,4]
     elif 'run ' in qstn and qstn.split('run ')[0] == '' or 'open ' in qstn and qstn.split('open ')[0] == '':
-        if 'open' in qstn:
-            qstn=qstn.replace('open ', 'run ')
-        if '/' in qstn:
-            oqstno=qstn.replace('run', 'run ')
+        if cmd == True:
+            if 'open' in qstn:
+                qstn=qstn.replace('open ', 'run ')
+            if '/' in qstn:
+                oqstno=qstn.replace('run', 'run ')
+            else:
+                oqstno=qstn
+            screen('running command '+qstn.replace('run', ''))
+            if ' ' in oqstno.split('run ')[1]:
+                os.system((oqstno.split('run ')[1])+' &')
+            else:
+                os.system((oqstno.split('run ')[1])+' &')
+            time.sleep(1)
+            print('\n')
         else:
-            oqstno=qstn
-        screen('running command '+qstn.replace('run', ''))
-        if ' ' in oqstno.split('run ')[1]:
-            os.system((oqstno.split('run ')[1])+' &')
-        else:
-            os.system((oqstno.split('run ')[1])+' &')
-        time.sleep(1)
-        print('\n')
+            print('Command line is not enabled')
         moodometer=[1,2,3,4,6]
-    elif 'kill' in qstn or 'till' in qstn or 'close' in qstn:
-        if 'till' in qstn:
-            screen('assuming you ment "Kill"...')
-            qstn=qstn.replace('till', 'kill')
-        elif 'close' in qstn:
-            qstn=qstn.replace('close', 'kill')
-        if '/' in qstn:
-            oqstno=qstn.replace('kill', 'kill ')
+    elif 'kill ' in qstn and qstn.split('kill ')[0] == '' or 'close' in qstn and qstn.split('close ')[0] == '':
+        if cmd == True:
+            if 'close' in qstn:
+                qstn=qstn.replace('close', 'kill')
+            if '/' in qstn:
+                oqstno=qstn.replace('kill', 'kill ')
+            else:
+                oqstno=qstn
+            os.system('killall -9 '+(oqstno.split('kill ')[1]))
+            screen('killing process '+qstn.replace('kill', ''))
+            print('\n')
         else:
-            oqstno=qstn
-        os.system('killall -9 '+(oqstno.split('kill ')[1]))
-        screen('killing process '+qstn.replace('kill', ''))
-        print('\n')
+            print('Command line is not enabled')
         moodometer=[1,2,3,4,6]
     elif rsponce[0] == 'I feel great!' and 'good' in qstn:
         snl('and how are you?')
@@ -409,12 +421,14 @@ def question(qstn):
         screen('Picture taken')
         moodometer=[1,2,3,4,5]
     elif 'Google search' in qstn or 'google search' in qstn:
-        saidgtxt=input("Search: ")
-        #os.system('xdg-open https://www.google.com/search?q='+saidgtxt+' &')
-        try:
-            screen(google_search(saidgtxt))
-        except ConnectionError:
-            screen('No internet connection!')
+        if webscrape == True:
+            saidgtxt=input("Search: ")
+            try:
+                screen(google_search(saidgtxt))
+            except ConnectionError:
+                screen('No internet connection!')
+        else:
+            print('Web scraping is not enabled.')
         moodometer=[1,2,3,4,5,6]
     elif 'I will' in qstn or 'definately' in qstn:
         screen('that is good')
@@ -520,9 +534,6 @@ def question(qstn):
     elif "correct" in qstn and "you" in qstn and "are" in qstn or qstn == "correct":
         screen("I know")
         moodometer=[1,2,3,4]
-    elif 'Bible' in qstn or 'verse' in qstn:
-        bible()
-        moodometer=[1,2,3,4,5]
     elif qstn == "oh":
         screen('yep')
         moodometer=[1,2,3,4,5]
@@ -533,11 +544,14 @@ def question(qstn):
         screen("I'm not sure I have one")
         moodometer=[1,2,3,4]
     elif 'what' in qstn and not 'whatever' in qstn or 'how' in qstn or'when' in qstn or 'who' in qstn or 'why' in qstn:
-        screen('Searching...')
-        try:
-            screen(google_search(qstn))
-        except ConnectionError:
-            screen('No internet connection!')
+        if webscrape == True:
+            screen('Searching...')
+            try:
+                screen(google_search(qstn))
+            except ConnectionError:
+                screen('No internet connection!')
+        else:
+            print('Web scraping is not enabled')
         moodometer=[1,2,3,4,6]
     elif 'when' in qstn and 'born' in qstn or 'how' in qstn and 'old' in qstn:
         screen('I was born in 2021')
@@ -756,16 +770,6 @@ def ntime():
     if second <= 9:
         second="0"+str(minute)
     print(str(hour)+":"+str(minute)+":"+str(second))
-# Find any bible verse from an API
-def bible():
-    screen('what verse?')
-    verse=input(': ')
-    screen(verse)
-    response = requests.get("https://bible-api.com/"+verse)
-    try:
-        screen(response.json()['text'])
-    except KeyError:
-        screen('that verse does not exist')
 # Define variables that will be used for different things
 TM_var="TM"
 st=0
