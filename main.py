@@ -264,14 +264,42 @@ def question(qstn):
                     break
             break
         moodometer=[1,2,3,4,6]
-    if 'spell' in qstn:
+    if 'run ' in qstn and qstn.split('run ')[0] == '' or 'open ' in qstn and qstn.split('open ')[0] == '':
+        if cmd == True:
+            if 'open' in qstn:
+                qstn=qstn.replace('open ', 'run ')
+            if '/' in qstn:
+                oqstno=qstn.replace('run', 'run ')
+            else:
+                oqstno=qstn
+            screen('running command '+qstn.replace('run', ''))
+            if ' ' in oqstno.split('run ')[1]:
+                os.system((oqstno.split('run ')[1])+' &')
+            else:
+                os.system((oqstno.split('run ')[1])+' &')
+            time.sleep(1)
+            print('\n')
+        else:
+            print('Command line is not enabled')
+        moodometer=[1,2,3,4,6]
+    elif 'google search' in qstn and qstn.split('google search ')[0] == '':
+        if webscrape == True:
+            saidgtxt=qstn.split('google search')[1]
+            try:
+                screen(google_search(saidgtxt))
+            except ConnectionError:
+                screen('No internet connection!')
+        else:
+            print('Web scraping is not enabled.')
+        moodometer=[1,2,3,4,5,6]
+    elif 'spell' in qstn:
         try:
             htspl=qstn.split('spell ')
             spell(htspl[1])
         except:
             pass
         moodometer=[1,2,3,4,6]
-    if qstn == 'edit':
+    elif qstn == 'edit':
         if edit_allow == True:
             edit()
         else:
@@ -333,24 +361,6 @@ def question(qstn):
     elif 'you' in qstn and 'said' in qstn:
         screen("no I didn't")
         moodometer=[1,2,3,4]
-    elif 'run ' in qstn and qstn.split('run ')[0] == '' or 'open ' in qstn and qstn.split('open ')[0] == '':
-        if cmd == True:
-            if 'open' in qstn:
-                qstn=qstn.replace('open ', 'run ')
-            if '/' in qstn:
-                oqstno=qstn.replace('run', 'run ')
-            else:
-                oqstno=qstn
-            screen('running command '+qstn.replace('run', ''))
-            if ' ' in oqstno.split('run ')[1]:
-                os.system((oqstno.split('run ')[1])+' &')
-            else:
-                os.system((oqstno.split('run ')[1])+' &')
-            time.sleep(1)
-            print('\n')
-        else:
-            print('Command line is not enabled')
-        moodometer=[1,2,3,4,6]
     elif 'kill ' in qstn and qstn.split('kill ')[0] == '' or 'close' in qstn and qstn.split('close ')[0] == '':
         if cmd == True:
             if 'close' in qstn:
@@ -420,16 +430,6 @@ def question(qstn):
         os.system("fswebcam -r 1280x720 --no-banner ~/Pictures/AI.jpg")
         screen('Picture taken')
         moodometer=[1,2,3,4,5]
-    elif 'Google search' in qstn or 'google search' in qstn:
-        if webscrape == True:
-            saidgtxt=input("Search: ")
-            try:
-                screen(google_search(saidgtxt))
-            except ConnectionError:
-                screen('No internet connection!')
-        else:
-            print('Web scraping is not enabled.')
-        moodometer=[1,2,3,4,5,6]
     elif 'I will' in qstn or 'definately' in qstn:
         screen('that is good')
         moodometer=[1,2,3,4,4,4,4,4,4,5]
