@@ -334,7 +334,7 @@ def question(qstn):
         screen('oh.')
         gtdt()
         moodometer=[1,2,3,4,5]
-    elif crsponce[0] == 'and how are you?' and 'great' in qstn or crsponce[0] == 'and how are you?' and ' good' in qstn and crsponce[0] == 'and how are you?' and 'fine' in qstn:
+    elif crsponce[0] == 'and how are you?' and 'fine' in qstn or crsponce[0] == 'and how are you?' and 'great' in qstn or crsponce[0] == 'and how are you?' and ' good' in qstn and crsponce[0] == 'and how are you?' and 'fine' in qstn:
         screen('that is very good')
         moodometer=[1,2,3]
     elif crsponce[0] == "What's your favorite type of music?" and 'music' in qstn or 'jazz' in qstn:
