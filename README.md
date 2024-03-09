@@ -22,6 +22,7 @@ To install CustomChat, follow these steps:
 CustomChat requires the following Python libraries:
 - `bs4` (Beautiful Soup): For web scraping capabilities.
 - `requests` For making HTTP requests.
+
 These are already in the "Dependencies" folder.
 
 ## Customization
