@@ -6,8 +6,7 @@ CustomChat is an easily customizable AI chatbot powered by Jimbot AI. Whether yo
 
 To install CustomChat, follow these steps:
 
-1. Clone the repository to your local machine:
-   <pre><code>git clone https://github.com/Mrpi314tech/CustomChat</code></pre>
+1. Download the zip file from the latest release and unzip it.
 
 2. Navigate to the CustomChat directory:
    <pre><code>cd CustomChat</code></pre>
