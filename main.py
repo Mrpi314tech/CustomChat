@@ -616,7 +616,6 @@ def question(qstn):
         mood = 5
 # Chatbot lists for when he is angry
 def mquestion(qstn):
-    print('\n\n')
     if 'hello' in qstn or 'hi' in qstn:
         screen('hi')
         madometer=[1,2,3]
