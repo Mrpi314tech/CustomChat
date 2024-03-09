@@ -1,5 +1,6 @@
-
 # Import modules
+import sys
+sys.path.append('Dependencies')
 import time
 import os
 import random
