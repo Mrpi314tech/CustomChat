@@ -506,7 +506,7 @@ def question(qstn):
         screen('just say anything')
     elif qstn == 'why':
         screen('because')
-        moodometer=[1,5,5,5]
+        moodometer=[1,2,3,4,5,5]
     elif 'scared' in qstn or 'frightened' in qstn:
         print('dont worry, youll probably be fine')
         moodometer=[1,2,3,4,4,4]
@@ -610,9 +610,9 @@ def question(qstn):
     elif moodc == 5:
         saylist=[1,2]
         if random.choice(saylist) == 2:
-            snl('I am done.')
+            snl('I am angry')
         else:
-            snl('I am really mad')
+            snl('I am mad')
         mood = 5
 # Chatbot lists for when he is angry
 def mquestion(qstn):
@@ -620,7 +620,7 @@ def mquestion(qstn):
         screen('hi')
         madometer=[1,2,3]
     elif 'good' in qstn and 'look' in qstn or 'smell' in qstn or 'sound' in qstn:
-        screen('thanks!')
+        screen('thanks.')
         madometer=[2,3,3,3]
     elif 'sorry' in qstn and not 'not' in qstn:
         screen('ok')
