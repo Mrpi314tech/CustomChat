@@ -19,7 +19,7 @@ print('Welcome to '+name+'\n')
 # Find username and ip
 file_location=os.path.expanduser('~')
 # Set up simple phrases
-chatlist=['I can do many things to help out. Just ask me!','Type edit to customize me to your needs', 'if you want to play a game, just ask me!','what is your favorite color?', "what are you doing today?", 'what is your favorite food?', 'Tell me about yourself.',"What's your favorite thing to do in your free time?",    "Have you traveled anywhere recently? Where did you go?",    "What's your favorite type of music?",    "Do you have any hobbies that you enjoy?",    "What do you like to do on the weekends?"]  
+chatlist=['I can do many things to help out. Just ask me!','Press edit to customize me to your needs', 'if you want to play a game, just ask me!','what is your favorite color?', "what are you doing today?", 'what is your favorite food?', 'Tell me about yourself.',"What's your favorite thing to do in your free time?",    "Have you traveled anywhere recently? Where did you go?",    "What's your favorite type of music?",    "Do you have any hobbies that you enjoy?",    "What do you like to do on the weekends?"]  
 # define variables for determining mood
 data=[]
 jsaid=[]
@@ -306,9 +306,18 @@ def question(qstn):
         else:
             print('Editing is locked')
         moodometer=[1,2,3,4,6]
-    elif 'you' in qstn and 'doing' in qstn and 'what' in qstn:
+    elif 'up to' in qstn or 'you' in qstn and 'doing' in qstn and 'what' in qstn:
         gtdt()
         moodometer=[1,2,3,4,5]
+    elif 'what' in qstn and 'can' in qstn and 'do' in qstn and 'you' in qstn:
+        screen('I am CustomChat, and I am an easily customizable Python Chatbot. Ask me general information, or just have a conversation.')
+        moodometer=[1,2,3,4]
+    elif ' means ' in qstn and not 'what' in qstn and  'means, or how that relates to the conversation.' in rsponce[0]:
+        screen('Type edit to tell me what it means.')
+        moodometer=[1,2,3,4]
+    elif 'customiz' in qstn:
+        screen('To customize me, type edit, and follow the instructions.')
+        moodometer=[1,2,3,4]    
     elif qstn == 'exit' or 'leave' in qstn or "goodbye" in qstn:
         screen("Goodbye")
         exit()
@@ -317,7 +326,7 @@ def question(qstn):
         screen('I am doing great!')
         moodometer=[1,1,1,2,3,4]
     elif 'hi' == qstn or 'hi ' in qstn or 'hello' in qstn or 'what' in qstn and ' up' in qstn or 'wussup' in qstn or 'greet' in qstn:
-        greeth=random.choice(range(1,3))
+        greeth=random.choice([1,2,3])
         if greeth == 1:
             screen('hello, %s' % your_name)
         elif greeth == 2:
@@ -534,7 +543,7 @@ def question(qstn):
     elif qstn == "oh":
         screen('yep')
         moodometer=[1,2,3,4,5]
-    elif 'are you' in qstn or 'your name' in qstn:
+    elif 'who' in qstn and 'are you' in qstn or 'your name' in qstn:
         screen('I am '+name)
         moodometer=[1,2,3,4,5]
     elif 'what' in qstn and 'your' in qstn:
