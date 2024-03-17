@@ -19,7 +19,7 @@ print('Welcome to '+name+'\n')
 # Find username and ip
 file_location=os.path.expanduser('~')
 # Set up simple phrases
-chatlist=['I can do many things to help out. Just ask me!','Press edit to customize me to your needs', 'if you want to play a game, just ask me!','what is your favorite color?', "what are you doing today?", 'what is your favorite food?', 'Tell me about yourself.',"What's your favorite thing to do in your free time?",    "Have you traveled anywhere recently? Where did you go?",    "What's your favorite type of music?",    "Do you have any hobbies that you enjoy?",    "What do you like to do on the weekends?"]  
+chatlist=['Ask me anything! I can search google for an answer.','I can do many things to help out. Just ask me!','Press edit to customize me to your needs', 'if you want to play a game, just ask me!','what is your favorite color?', "what are you doing today?", 'what is your favorite food?', 'Tell me about yourself.',"What's your favorite thing to do in your free time?",    "Have you traveled anywhere recently? Where did you go?",    "What's your favorite type of music?",    "Do you have any hobbies that you enjoy?",    "What do you like to do on the weekends?"]  
 # define variables for determining mood
 data=[]
 jsaid=[]
@@ -31,7 +31,7 @@ verb="act answer approve arrange break build buy color cough create complete cry
 notnoun="for and nor but or yet so a an the and do I he him her tell we they it who what where when why how me she you my"+verb.lower()
 
 def speak(txt):
-  print(txt)
+    print(txt)
 # Google Search
 from bs4 import BeautifulSoup
 import re
@@ -238,7 +238,6 @@ def question(qstn):
     qstn=qstn.replace('@ ', '')
     global notnoun
     wverb=qstn.split(" ")
-    snfv=0
     aantt=0
     global cmd
     global webscrape
@@ -353,6 +352,8 @@ def question(qstn):
         else:
             screen('My favorite music is Jazz')
         moodometer=[1,2,3,4]
+    elif 'you like' in qstn:
+        screen("I don't know. Do you?")
     elif crsponce[0] == "Have you traveled anywhere recently? Where did you go?" and ' went ' in qstn:
         screen('I recentely went to Canada to eat Jellied Moose nose')
         moodometer=[1,2,3]
@@ -433,9 +434,6 @@ def question(qstn):
     elif "you're" in qstn or "you are" in qstn:
         screen("No I'm not")
         moodometer=[1,2,3]
-    elif 'fart' in qstn:
-        stinky()
-        moodometer=[1,2,3,4,4,5,5]
     elif 'I will' in qstn or 'definately' in qstn:
         screen('that is good')
         moodometer=[1,2,3,4,4,4,4,4,4]
