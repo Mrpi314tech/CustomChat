@@ -354,6 +354,7 @@ def question(qstn):
         moodometer=[1,2,3,4]
     elif 'you like' in qstn:
         screen("I don't know. Do you?")
+        moodometer=[1,2,3,4]
     elif crsponce[0] == "Have you traveled anywhere recently? Where did you go?" and ' went ' in qstn:
         screen('I recentely went to Canada to eat Jellied Moose nose')
         moodometer=[1,2,3]
