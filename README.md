@@ -25,11 +25,11 @@ These are already in the "Dependencies" folder.
 
 ## Customization
 
-Tailoring CustomChat to your requirements is a breeze. You can personalize the chatbot's name and incorporate keywords to suit your preferences. Simply access the "Name" file and modify it with your desired name. Additionally, to integrate your own keywords, initiate CustomChat and input "edit" to follow the prompts.
+Tailoring CustomChat to your requirements is a breeze. You can personalize the chatbot's name and incorporate keywords to suit your preferences. Simply type the code ```CustomChat.change_name('Your Name Here')```  to modify the name. Additionally, to integrate your own keywords, initiate CustomChat and input "edit" to follow the prompts.
 
 ## Restrictions
 
-CustomChat offers flexibility in managing permissions. Should you wish to impose restrictions, such as prohibiting users from executing commands, you can effortlessly adjust settings in the configuration file. By toggling values from True to False, you can define the level of access granted to users.
+CustomChat offers flexibility in managing permissions. Should you wish to impose restrictions, such as prohibiting users from executing commands, you can effortlessly adjust settings in the configuration file. By running the code ```CustomChat.set_config()``` you can easily adjust the permissions to what you want.
 
 ## Capabilities
 
