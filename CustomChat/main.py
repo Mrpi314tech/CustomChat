@@ -2,7 +2,7 @@ def run():
     import CustomChat.app
 def change_name(name):
     import os
-    file1 = open(os.path.join(os.path.dirname(__file__), "Name"), "w")
+    file1 = open(os.path.join(os.path.dirname(__file__), "Name.py"), "w")
     file1.write(name)
     file1.close()
 def set_config():

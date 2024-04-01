@@ -11,7 +11,7 @@ cwd=os.path.dirname(os.path.realpath(__file__))
 cwd=cwd+'/'
 print(cwd)
 # Get name
-namef = open(cwd+"Name", "r")
+namef = open(cwd+"Name.py", "r")
 name=namef.read()
 name=name.split('\n')[0]
 namef.close()
