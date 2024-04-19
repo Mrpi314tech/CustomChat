@@ -9,11 +9,37 @@ To install CustomChat, follow these steps:
 1. Download the package with pip:
    <pre><code>pip install CustomChat</code></pre>
    
-3. Run the code with python:
+2. Test the code with python:
    <pre><code>import CustomChat
    CustomChat.run()</code></pre>
 
    This will start CustomChat and you can begin customizing it for your needs.
+
+## How to Use
+
+CustomChat is designed for seamless interaction and easy customization. Follow these simple steps to maximize your experience:
+
+1. **Initializing CustomChat:**
+   - After installation, import CustomChat into your Python environment and start the chatbot by running:
+     ```python
+     import CustomChat
+     CustomChat.run()
+     ```
+   This command initializes CustomChat, allowing you to interact with it.
+
+2. **Getting Responses:**
+   - To receive responses from CustomChat based on your inputs, use the following function:
+     ```python
+     responses = CustomChat.get_response('your input here')
+     ```
+   This function returns a list containing the main response as the first element and the secondary response as the second element.
+
+3. **Resetting Data:**
+   - If needed, you can reset the chatbot's data by running:
+     ```python
+     CustomChat.reset()
+     ```
+   This clears the information stored in the file "ai_data.py".
 
 ### Requirements
 
