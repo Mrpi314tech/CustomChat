@@ -1,5 +1,17 @@
 def run():
-    import CustomChat.app
+    import CustomChat
+    while True:
+        inputvar=input(': ')
+        if 'exit' in inputvar or 'goodbye' in inputvar:
+            print('exiting')
+            break
+        print(CustomChat.get_response(inputvar))
+    CustomChat.reset()
+def reset():
+    import os
+    file1 = open(os.path.join(os.path.dirname(__file__), "ai_data.py"), "w")
+    file1.write("Name=''\njsaid=['']\ndata=['']\ncrsponce=['']\nrsponce=['']")
+    file1.close()
 def get_response(input_text):
     import CustomChat.app
     CustomChat.app.compute(input_text)
