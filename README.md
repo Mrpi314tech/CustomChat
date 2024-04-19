@@ -51,7 +51,7 @@ These are already in the "Dependencies" folder.
 
 ## Customization
 
-Tailoring CustomChat to your requirements is a breeze. You can personalize the chatbot's name and incorporate keywords to suit your preferences. Simply type the code ```CustomChat.change_name('Your Name Here')```  to modify the name. Additionally, to integrate your own keywords, initiate CustomChat and input "edit" to follow the prompts.
+Tailoring CustomChat to your requirements is a breeze. You can personalize the chatbot's name and incorporate keywords to suit your preferences. Simply type the code ```CustomChat.change_name('Your Name Here')```  to modify the name. Additionally, to integrate your own keywords, initiate CustomChat and input "edit" to follow the prompts. CustomChat can only be edited from the terminal.
 
 ## Restrictions
 
