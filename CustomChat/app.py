@@ -9,29 +9,21 @@ import requests
 # Get cwd
 cwd=os.path.dirname(os.path.realpath(__file__))
 cwd=cwd+'/'
-print(cwd)
 # Get name
 namef = open(cwd+"Name.py", "r")
 name=namef.read()
 name=name.split('\n')[0]
 namef.close()
-print('Welcome to '+name+'\n')
 # Find username and ip
 file_location=os.path.expanduser('~')
 # Set up simple phrases
-chatlist=['Ask me anything! I can search google for an answer.','I can do many things to help out. Just ask me!','Type edit to customize me to your needs', 'if you want to play a game, just ask me!','what is your favorite color?', "what are you doing today?", 'what is your favorite food?', 'Tell me about yourself.',"What's your favorite thing to do in your free time?",    "Have you traveled anywhere recently? Where did you go?",    "What's your favorite type of music?",    "Do you have any hobbies that you enjoy?",    "What do you like to do on the weekends?"]  
+chatlist=['Ask me anything! I can search google for an answer.','I can do many things to help out. Just ask me!', 'if you want to play a game, just ask me!','what is your favorite color?', "what are you doing today?", 'what is your favorite food?', 'Tell me about yourself.',"What's your favorite thing to do in your free time?",    "Have you traveled anywhere recently? Where did you go?",    "What's your favorite type of music?",    "Do you have any hobbies that you enjoy?",    "What do you like to do on the weekends?"]  
 # define variables for determining mood
-data=[]
-jsaid=[]
 mood=1
-# Ask your name
-your_name = input('Please tell me your name: ')
 # Simple grammar
 verb="act answer approve arrange break build buy color cough create complete cry dance describe draw drink eat edit enter exit imitate invent jump laugh lie listen paint plan play read replace run scream see shop shout sing skip sleep sneeze solve study teach touch turn walk win write whistle yank zip concern decide dislike doubt feel forget hate hear hope impress know learn like look love mind notice own perceive realize recognize remember see smell surprise please prefer promise think understand am appear are be become been being feel grow is look remain seem smell sound stay taste turn was were can could may might must ought to shall should will would"
 notnoun="for and nor but or yet so a an the and do I he him her tell we they it who what where when why how me she you my"+verb.lower()
 
-def speak(txt):
-    print(txt)
 # Google Search
 from bs4 import BeautifulSoup
 import re
@@ -217,6 +209,15 @@ def edit():
                         print('word/command not found!')
                         break
                 break
+# Import previous data:
+import CustomChat.ai_data as dvar
+your_name=dvar.Name
+jsaid=dvar.jsaid
+data=dvar.data
+crsponce=dvar.crsponce
+rsponce=dvar.rsponce
+if your_name == "":
+    your_name = 'user'
 # Chatbot function.
 import CustomChat.new_words as aword
 import CustomChat.new_com as acom
@@ -234,6 +235,7 @@ def question(qstn):
     global ndefl
     global nwordl
     global file_location
+    global ml
     qstn=qstn.lower()
     qstn=qstn.replace('@ ', '')
     global notnoun
@@ -264,7 +266,7 @@ def question(qstn):
                     break
             break
         moodometer=[1,2,3,4,6]
-    if 'run ' in qstn and qstn.split('run ')[0] == '' or 'open ' in qstn and qstn.split('open ')[0] == '':
+    if cmd == True and 'run ' in qstn and qstn.split('run ')[0] == '' or 'open ' in qstn and qstn.split('open ')[0] == '':
         if cmd == True:
             if 'open' in qstn:
                 qstn=qstn.replace('open ', 'run ')
@@ -278,11 +280,10 @@ def question(qstn):
             else:
                 os.system((oqstno.split('run ')[1])+' &')
             time.sleep(1)
-            print('\n')
         else:
             print('Command line is not enabled')
         moodometer=[1,2,3,4,6]
-    elif 'google search' in qstn and qstn.split('google search ')[0] == '':
+    elif webscrape == True and 'google search' in qstn and qstn.split('google search ')[0] == '':
         if webscrape == True:
             saidgtxt=qstn.split('google search')[1]
             try:
@@ -299,11 +300,17 @@ def question(qstn):
         except:
             pass
         moodometer=[1,2,3,4,6]
-    elif qstn == 'edit':
+    elif 'my' in qstn and 'name' in qstn:
+        screen('Tell me your name: ')
+        moodometer=[1,2,3,4,5]
+    elif rsponce[0] == 'Tell me your name: ':
+        global your_name
+        your_name=qstn
+        screen('hello, '+your_name)
+        moodometer=[1,2,3,4]
+    elif qstn == 'edit' and edit_allow == True:
         if edit_allow == True:
             edit()
-        else:
-            print('Editing is locked')
         moodometer=[1,2,3,4,6]
     elif 'up to' in qstn or 'you' in qstn and 'doing' in qstn and 'what' in qstn:
         gtdt()
@@ -319,7 +326,6 @@ def question(qstn):
         moodometer=[1,2,3,4]    
     elif qstn == 'exit' or 'leave' in qstn or "goodbye" in qstn:
         screen("Goodbye")
-        exit()
         moodometer=[1,2,3,4]
     elif 'you' in qstn and 'doing' in qstn and 'how' in qstn:
         screen('I am doing great!')
@@ -444,8 +450,8 @@ def question(qstn):
         screen('It could\nhappen')
         moodometer=[1,2,3,4,5]
     elif 'hate you' in qstn:
-        screen('Feelings: hurt. Restarting system.')
-        raise ValueError('You are a bad person so I kicked you out')
+        screen("That's not nice")
+        moodometer=[5,5,5,5]
     elif 'i feel' in qstn:
         if 'sad' in qstn or 'bad' in qstn or 'angry' in qstn or 'depressed' in qstn or "sick" in qstn:
             screen('I hope you feel better soon')
@@ -470,7 +476,7 @@ def question(qstn):
         moodometer=[1,2,3,4,5]
     elif 'how are you' in qstn or 'how do you do' in qstn:
         screen('I feel great!')
-        moodometer=[1,2,3,4,4,4,4,4,4,4,4]
+        moodometer=[1,2,2,2,2,2,2,2,2,3]
     elif 'funny' in qstn and 'you' in qstn or 'hystarical' in qstn and 'you' in qstn:
         screen('Thanks')
         moodometer=[1,2,3,4,4,4,4,4,4,4,4,4]
@@ -500,7 +506,6 @@ def question(qstn):
         moodometer=[1,2,3,4,4,4,4,4,4,4,4]
     elif 'your cool' in qstn or 'you too' in qstn:
         print(':)')
-        speak('smiles')
         moodometer=[1,2,3,4,4,4,4,4,4,4,4]
     elif 'welcome' in qstn and "you" in qstn:
         screen('thanks')
@@ -585,7 +590,7 @@ def question(qstn):
                 else:
                     nnfco+=1
             except IndexError:
-                screen('I did not understand that. You can press edit to tell me what it means')
+                screen('I did not understand that. You can try searching google.')
                 break
         moodometer=[1,2,3,4]
     # Determine mood
@@ -596,15 +601,17 @@ def question(qstn):
         moodometer.remove(4)
     except ValueError:
         pass
-    moodometer.insert(0, mood)
-    moodometer.insert(0, mood)
+    moodometer.insert(0, ml)
+    moodometer.insert(0, ml)
     if '6' in str(moodometer):
         moodometer.remove(2)
     moodc=random.choice(moodometer)
     if moodc == 4 or moodc == 1:
         mood = 1
+        snl('')
     elif moodc == 3:
         mood = 3
+        snl('')
     elif moodc == 2:
         global chatlist
         chatty=random.choice(chatlist)
@@ -615,12 +622,15 @@ def question(qstn):
         chatlist.remove(chatty)
         mood = 2 
     elif moodc == 5:
+        snl('')
         saylist=[1,2]
         if random.choice(saylist) == 2:
             snl('I am angry')
         else:
             snl('I am mad')
         mood = 5
+    else:
+        snl('')
 # Chatbot lists for when he is angry
 def mquestion(qstn):
     if 'hello' in qstn or 'hi' in qstn:
@@ -656,8 +666,6 @@ psaid=[]
 wign=[]
 ndef=""
 nword=""
-rsponce=['']
-crsponce=['']
 AIg = 0
 ne = 1
 # Play rock paper scissors
@@ -740,11 +748,9 @@ def joke():
         screen("they make up everything")
 # Set up functions to print to GUI
 def screen(text):
-    print(text)
     global jsaid
     rsponce.insert(0, text)
 def snl(snlt):
-    print(snlt)
     global jsaid
     crsponce.insert(0, snlt)
 # Function for spelling
@@ -777,28 +783,35 @@ def ntime():
 TM_var="TM"
 st=0
 greet='hello, %s' % your_name
-speak(greet)
 fill=0
 lasts=' '
 user_text=''
 resthre=0
+ml=1
 # No longer defining things
-while True:
-    # Reset variables
-    talkyes=True
-    if st == 0:
-        st=1
-        past=['z','z','z','z']
-    saidtxt=input(': ')
+# Run
+def compute(saidtxt):
+    global question
+    global mquestion
+    global jsaid
+    global data
+    global mood
+    global most_frequent
+    global your_name
+    global crsponce
+    global rsponce
     # Compute input
     if saidtxt == 'what' or 'pardon' in saidtxt or saidtxt == 'again' or saidtxt == 'repeat':
         saidtxt=jsaid[1]
     if mood == 5:
-        mquestion(saidtxt)
+        output=mquestion(saidtxt)
     else:
-        question(saidtxt)
+        output=question(saidtxt)
     lasts=saidtxt
     data.insert(0, int(mood))
     if len(data) >= 5:
         data.pop(3)
     ml=most_frequent(data)
+    file1 = open(cwd+"ai_data.py", "w")
+    file1.write("Name='"+str(your_name)+"'\njsaid="+str(jsaid)+"\ndata="+str(data)+"\ncrsponce="+str(crsponce)+"\nrsponce="+str(rsponce))
+    file1.close()

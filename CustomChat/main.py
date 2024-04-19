@@ -1,5 +1,11 @@
 def run():
     import CustomChat.app
+def get_response(input_text):
+    import CustomChat.app
+    CustomChat.app.compute(input_text)
+    import CustomChat.ai_data as dvar
+    output_data=[dvar.rsponce[0],dvar.crsponce[0]]
+    return output_data
 def change_name(name):
     import os
     file1 = open(os.path.join(os.path.dirname(__file__), "Name.py"), "w")
