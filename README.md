@@ -11,7 +11,7 @@ To install CustomChat, follow these steps:
    
 2. Test the code with python:
    <pre><code>import CustomChat
-   CustomChat.run()</code></pre>
+   CustomChat.run(username)</code></pre>
 
    This will start CustomChat and you can begin customizing it for your needs.
 
