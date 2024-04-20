@@ -23,23 +23,23 @@ CustomChat is designed for seamless interaction and easy customization. Follow t
    - After installation, import CustomChat into your Python environment and start the chatbot by running:
      ```python
      import CustomChat
-     CustomChat.run()
+     CustomChat.run(username)
      ```
-   This command initializes CustomChat, allowing you to interact with it.
+   This command initializes CustomChat, allowing you to interact with it. Username can be any string, it just has to identify who is using the bot.
 
 2. **Getting Responses:**
    - To receive responses from CustomChat based on your inputs, use the following function:
      ```python
-     responses = CustomChat.get_response('your input here')
+     responses = CustomChat.get_response('your input here','your username')
      ```
-   This function returns a list containing the main response as the first element and the secondary response as the second element.
+   This function returns a list containing the main response as the first element and the secondary response as the second element. The username variable can be anything from a name to an ip address.
 
 3. **Resetting Data:**
    - If needed, you can reset the chatbot's data by running:
      ```python
-     CustomChat.reset()
+     CustomChat.reset(username)
      ```
-   This clears the information stored in the file "ai_data.py".
+   This clears the information stored for that user.
 
 ### Requirements
 
