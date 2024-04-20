@@ -361,7 +361,7 @@ def question(qstn):
     elif 'you like' in qstn:
         screen("I don't know. Do you?")
     elif crsponce[0] == "Have you traveled anywhere recently? Where did you go?" and ' went ' in qstn:
-        screen('I recentely went to Canada to eat Jellied Moose nose')
+        screen('That sounds fun.')
         moodometer=[1,2,3]
     elif crsponce[0] == "What's your favorite thing to do in your free time?" and 'my' in qstn and 'favorite' in qstn or crsponce[0] == "What's your favorite thing to do in your free time?" and 'i ' in qstn and 'like' in qstn:
         screen('My favorite thing to do is sit here and compute your input')

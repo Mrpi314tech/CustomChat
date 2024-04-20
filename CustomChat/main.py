@@ -42,5 +42,5 @@ def set_config():
     else:
         Edit=True
     file1 = open(os.path.join(os.path.dirname(__file__), "configuration.py"), "w")
-    file1.write("Command_Line="+command+"\nWeb_Scrape="+Web+"\nEdit="+Edit+"")
+    file1.write("Command_Line="+str(command)+"\nWeb_Scrape="+str(Web)+"\nEdit="+str(Edit)+"")
     file1.close()
