@@ -209,15 +209,12 @@ def edit():
                         print('word/command not found!')
                         break
                 break
-# Import previous data:
-import CustomChat.ai_data as dvar
-your_name=dvar.Name
-jsaid=dvar.jsaid
-data=dvar.data
-crsponce=dvar.crsponce
-rsponce=dvar.rsponce
-if your_name == "":
-    your_name = 'user'
+# Reset data:
+your_name=""
+jsaid=['']
+data=['']
+crsponce=['']
+rsponce=['']
 # Chatbot function.
 import CustomChat.new_words as aword
 import CustomChat.new_com as acom
@@ -300,6 +297,30 @@ def question(qstn):
         except:
             pass
         moodometer=[1,2,3,4,6]
+    elif 'rock' in qstn or 'paper' in qstn or 'scissors' in qstn and 'Do you want to throw rock, paper, or scissors?' in rsponce[0]:
+        bot_throw=random.choice([1,2,3])
+        if bot_throw==1:
+            if 'paper' in qstn:
+                screen('Bot chose rock, You win!')
+            elif 'scissors' in qstn:
+                screen('Bot chose rock, You lose.')
+            else:
+                screen('You tied the bot.')
+        if bot_throw==2:
+            if 'rock' in qstn:
+                screen('Bot chose paper, You lose.')
+            elif 'scissors' in qstn:
+                screen('Bot chose paper, You win!')
+            else:
+                screen('You tied the bot.')
+        if bot_throw==3:
+            if 'rock' in qstn:
+                screen('Bot chose scissors, You win!')
+            elif 'paper' in qstn:
+                screen('Bot chose scissors, You lose.')
+            else:
+                screen('You tied the bot.')
+        moodometer=[1,2,2,2,3,4]
     elif 'my' in qstn and 'name' in qstn:
         screen('Tell me your name: ')
         moodometer=[1,2,3,4,5]
@@ -367,7 +388,7 @@ def question(qstn):
         screen('My favorite thing to do is sit here and compute your input')
         moodometer=[1,2,3]
     elif crsponce[0] == 'if you want to play a game, just ask me!' and 'ok' in qstn:
-        rockpaper()
+        screen('Do you want to throw rock, paper, or scissors?')
         moodometer=[1,2]
     elif crsponce[0] == 'What do you like to do on the weekends?' and 'nothing' in qstn:
         screen('I know you do something')
@@ -490,7 +511,7 @@ def question(qstn):
         screen('yes')
         moodometer=[1,2,3,4,4]
     elif 'rock' in qstn and 'paper' in qstn:
-        rockpaper()
+        screen('Do you want to throw rock, paper, or scissors?')
         moodometer=[1,2,3,4,4]
     elif 'thanks' in qstn:
         screen('your welcome')
@@ -668,38 +689,6 @@ ndef=""
 nword=""
 AIg = 0
 ne = 1
-# Play rock paper scissors
-def rockpaper():
-    screen('Rock paper scissors!')
-    time.sleep(1)
-    screen('what is your throw?')
-    humanthrow=input(': ')
-    hand=[1,2,3] #1=rock, 2= paper, 3=scissors
-    throw=random.choice(hand)
-    if 'rock' in humanthrow or 'Rock' in humanthrow:
-        if throw == 1:
-            screen('rock, tie')
-        if throw == 2:
-            screen('paper, you lose')
-        if throw == 3:
-            screen('scissors, you win')
-    elif 'paper' in humanthrow or 'Paper' in humanthrow:
-        if throw == 1:
-            screen('rock, you win')
-        if throw == 2:
-            screen('paper, tie')
-        if throw == 3:
-            screen('scissors, you lose')
-    elif 'scissors' in humanthrow or 'Scissors' in humanthrow:
-        if throw == 1:
-            screen('rock, you lose')
-        if throw == 2:
-            screen('paper, you win')
-        if throw == 3:
-            screen('scissors, tie')
-    else:
-        screen('that is not rock paper or scissors')
-    time.sleep(1)
 # Function for helping determine mood
 def most_frequent(List):
     return max(set(List), key = List.count)
@@ -790,7 +779,7 @@ resthre=0
 ml=1
 # No longer defining things
 # Run
-def compute(saidtxt):
+def compute(saidtxt,username):
     global question
     global mquestion
     global jsaid
@@ -800,6 +789,22 @@ def compute(saidtxt):
     global your_name
     global crsponce
     global rsponce
+    # Get previous info
+    import ast
+    try:
+        file1 = open(cwd+"/"+username+"_data", "r")
+        dvar=file1.read()
+        file1.close()
+        dvar=dvar.split('\n')
+        Name=dvar[0]
+        jsaid=ast.literal_eval(dvar[1])
+        data=ast.literal_eval(dvar[2])
+        crsponce=ast.literal_eval(dvar[3])
+        rsponce=ast.literal_eval(dvar[4])
+    except FileNotFoundError:
+        print('user not found')  
+    if your_name == "":
+        your_name = 'user'
     # Compute input
     if saidtxt == 'what' or 'pardon' in saidtxt or saidtxt == 'again' or saidtxt == 'repeat':
         saidtxt=jsaid[1]
@@ -812,6 +817,6 @@ def compute(saidtxt):
     if len(data) >= 5:
         data.pop(3)
     ml=most_frequent(data)
-    file1 = open(cwd+"ai_data.py", "w")
-    file1.write("Name='"+str(your_name)+"'\njsaid="+str(jsaid)+"\ndata="+str(data)+"\ncrsponce="+str(crsponce)+"\nrsponce="+str(rsponce))
+    file1 = open(cwd+username+"_data", "w")
+    file1.write("'"+str(your_name)+"'\n"+str(jsaid)+"\n"+str(data)+"\n"+str(crsponce)+"\n"+str(rsponce))
     file1.close()

@@ -1,22 +1,38 @@
-def run():
+def run(username):
     import CustomChat
     while True:
         inputvar=input(': ')
         if 'exit' in inputvar or 'goodbye' in inputvar:
             print('exiting')
             break
-        print(CustomChat.get_response(inputvar))
+        print(CustomChat.get_response(inputvar,username))
     CustomChat.reset()
-def reset():
+def reset(username):
     import os
-    file1 = open(os.path.join(os.path.dirname(__file__), "ai_data.py"), "w")
+    file1 = open(os.path.join(os.path.dirname(__file__), username+"_data"), "w")
     file1.write("Name=''\njsaid=['']\ndata=['']\ncrsponce=['']\nrsponce=['']")
     file1.close()
-def get_response(input_text):
+def get_response(input_text,username):
     import CustomChat.app
-    CustomChat.app.compute(input_text)
-    import CustomChat.ai_data as dvar
-    output_data=[dvar.rsponce[0],dvar.crsponce[0]]
+    CustomChat.app.compute(input_text,username)
+    import ast
+    import os
+    cwd=os.path.dirname(os.path.realpath(__file__))
+    try:
+        file1 = open(cwd+"/"+username+"_data", "r")
+        dvar=file1.read()
+        file1.close()
+        dvar=dvar.split('\n')
+        Name=dvar[0]
+        jsaid=ast.literal_eval(dvar[1])
+        data=ast.literal_eval(dvar[2])
+        crsponce=ast.literal_eval(dvar[3])
+        rsponce=ast.literal_eval(dvar[4])
+    except FileNotFoundError:
+        file1 = open(os.path.join(os.path.dirname(__file__), username+"_data"), "w")
+        file1.write("''\n['']\n['']\n['']\n['']")
+        file1.close()
+    output_data=[rsponce[0],crsponce[0]]
     return output_data
 def change_name(name):
     import os
