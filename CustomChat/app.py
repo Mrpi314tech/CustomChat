@@ -297,7 +297,7 @@ def question(qstn):
         except:
             pass
         moodometer=[1,2,3,4,6]
-    elif 'rock' in qstn or 'paper' in qstn or 'scissors' in qstn and 'Do you want to throw rock, paper, or scissors?' in rsponce[0]:
+    elif ('rock' in qstn or 'paper' in qstn or 'scissors' in qstn) and 'Do you want to throw rock, paper, or scissors?' in rsponce[0]:
         bot_throw=random.choice([1,2,3])
         if bot_throw==1:
             if 'paper' in qstn:
