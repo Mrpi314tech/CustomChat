@@ -10,7 +10,7 @@ def run(username):
 def reset(username):
     import os
     file1 = open(os.path.join(os.path.dirname(__file__), username+"_data"), "w")
-    file1.write("Name=''\njsaid=['']\ndata=['']\ncrsponce=['']\nrsponce=['']")
+    file1.write("''\n['']\n['']\n['']\n['']")
     file1.close()
 def get_response(input_text,username):
     import CustomChat.app
