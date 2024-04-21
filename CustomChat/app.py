@@ -420,7 +420,7 @@ def question(qstn):
         screen('me neither.')
         moodometer=[1,2,3,4]
     elif "color" in crsponce[0] and "color" in qstn:
-       print('My favorite color is Amaranth')
+       screen('My favorite color is Amaranth')
        moodometer=[1,2,3,4]
     elif 'my' in qstn and 'food' in qstn and 'favorite' in qstn and 'is' in qstn and not 'why' in qstn and not 'what' in qstn and not 'how' in qstn:
         screen('oh, my favorite food is Jellied Moose nose')
@@ -465,7 +465,7 @@ def question(qstn):
         screen('that is good')
         moodometer=[1,2,3,4,4,4,4,4,4]
     elif 'me too' in qstn or 'me also' in qstn:
-        print(':)')
+        screen(':)')
         moodometer=[1,2,3,4,4,4,4,4,4,4,4]
     elif 'chance' in qstn and 'no' in qstn or 'way' in qstn and 'no' in qstn:
         screen('It could\nhappen')
@@ -523,10 +523,10 @@ def question(qstn):
         screen('thanks!')
         moodometer=[1,2,3,4,4,4,4,4,4,4,4,4,4]
     elif 'your welcome' in qstn:
-        print(':)')
+        acreen(':)')
         moodometer=[1,2,3,4,4,4,4,4,4,4,4]
     elif 'your cool' in qstn or 'you too' in qstn:
-        print(':)')
+        screen(':)')
         moodometer=[1,2,3,4,4,4,4,4,4,4,4]
     elif 'welcome' in qstn and "you" in qstn:
         screen('thanks')
@@ -541,7 +541,7 @@ def question(qstn):
         screen('because')
         moodometer=[1,2,3,4,5,5]
     elif 'scared' in qstn or 'frightened' in qstn:
-        print('dont worry, youll probably be fine')
+        screen('dont worry, youll probably be fine')
         moodometer=[1,2,3,4,4,4]
     elif 'ok' in qstn:
         screen('ok')
@@ -767,7 +767,7 @@ def ntime():
         minute="0"+str(minute)
     if second <= 9:
         second="0"+str(minute)
-    print(str(hour)+":"+str(minute)+":"+str(second))
+    screen(str(hour)+":"+str(minute)+":"+str(second))
 # Define variables that will be used for different things
 TM_var="TM"
 st=0
@@ -806,8 +806,8 @@ def compute(saidtxt,username):
     if your_name == "":
         your_name = 'user'
     # Compute input
-    if saidtxt == 'what' or 'pardon' in saidtxt or saidtxt == 'again' or saidtxt == 'repeat':
-        saidtxt=jsaid[1]
+    #if saidtxt == 'what' or saidtxt == 'pardon' or saidtxt == 'again' or saidtxt == 'repeat':
+        #saidtxt=jsaid[1]
     if mood == 5:
         output=mquestion(saidtxt)
     else:
