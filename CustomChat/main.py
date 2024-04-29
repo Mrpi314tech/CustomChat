@@ -19,6 +19,9 @@ def get_response(input_text,username):
     cwd=os.path.dirname(os.path.realpath(__file__))
     try:
         file1 = open(cwd+"/"+username+"_data", "r")
+        CustomChat.app.compute(input_text,username)
+        file1.close()
+        file1 = open(cwd+"/"+username+"_data", "r")
         dvar=file1.read()
         file1.close()
         dvar=dvar.split('\n')
@@ -31,7 +34,20 @@ def get_response(input_text,username):
         file1 = open(os.path.join(os.path.dirname(__file__), username+"_data"), "w")
         file1.write("''\n['']\n['']\n['']\n['']")
         file1.close()
+<<<<<<< Updated upstream
     CustomChat.app.compute(input_text,username)
+=======
+        CustomChat.app.compute(input_text,username)
+        file1 = open(cwd+"/"+username+"_data", "r")
+        dvar=file1.read()
+        file1.close()
+        dvar=dvar.split('\n')
+        Name=dvar[0]
+        jsaid=ast.literal_eval(dvar[1])
+        data=ast.literal_eval(dvar[2])
+        crsponce=ast.literal_eval(dvar[3])
+        rsponce=ast.literal_eval(dvar[4])
+>>>>>>> Stashed changes
     output_data=[rsponce[0],crsponce[0]]
     return output_data
 def change_name(name):
