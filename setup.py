@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='CustomChat',
-    version='1.0.10',
+    version='1.0.11',
     packages=find_packages(),
     install_requires=[
         'requests',
