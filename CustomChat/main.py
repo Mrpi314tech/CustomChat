@@ -14,7 +14,6 @@ def reset(username):
     file1.close()
 def get_response(input_text,username):
     import CustomChat.app
-    CustomChat.app.compute(input_text,username)
     import ast
     import os
     cwd=os.path.dirname(os.path.realpath(__file__))
@@ -32,6 +31,7 @@ def get_response(input_text,username):
         file1 = open(os.path.join(os.path.dirname(__file__), username+"_data"), "w")
         file1.write("''\n['']\n['']\n['']\n['']")
         file1.close()
+    CustomChat.app.compute(input_text,username)
     output_data=[rsponce[0],crsponce[0]]
     return output_data
 def change_name(name):
