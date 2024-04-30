@@ -379,8 +379,12 @@ def question(qstn):
         else:
             screen('My favorite music is Jazz')
         moodometer=[1,2,3,4]
-    elif 'you like' in qstn:
+    elif 'you' in qstn and 'to do' in qstn:
+        screen('I like help my users.')
+        moodometer=[1,2,3,4]
+    elif 'you like' in qstn and 'do' in qstn:
         screen("I don't know. Do you?")
+        moodometer=[1,2,3,4]
     elif crsponce[0] == "Have you traveled anywhere recently? Where did you go?" and ' went ' in qstn:
         screen('That sounds fun.')
         moodometer=[1,2,3]
