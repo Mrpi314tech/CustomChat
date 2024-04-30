@@ -25,7 +25,7 @@ def get_response(input_text,username):
         dvar=file1.read()
         file1.close()
         dvar=dvar.split('\n')
-        Name=dvar[0]
+        your_name=dvar[0]
         jsaid=ast.literal_eval(dvar[1])
         data=ast.literal_eval(dvar[2])
         crsponce=ast.literal_eval(dvar[3])
@@ -39,7 +39,7 @@ def get_response(input_text,username):
         dvar=file1.read()
         file1.close()
         dvar=dvar.split('\n')
-        Name=dvar[0]
+        your_name=dvar[0]
         jsaid=ast.literal_eval(dvar[1])
         data=ast.literal_eval(dvar[2])
         crsponce=ast.literal_eval(dvar[3])
