@@ -800,7 +800,7 @@ def compute(saidtxt,username):
         dvar=file1.read()
         file1.close()
         dvar=dvar.split('\n')
-        your_name=dvar[0]
+        your_name=dvar[0].replace("'", '')
         jsaid=ast.literal_eval(dvar[1])
         data=ast.literal_eval(dvar[2])
         crsponce=ast.literal_eval(dvar[3])
@@ -808,7 +808,7 @@ def compute(saidtxt,username):
     except FileNotFoundError:
         print('user not found')  
     if your_name == "":
-        your_name = 'user'
+        your_name = "user"
     # Compute input
     #if saidtxt == 'what' or saidtxt == 'pardon' or saidtxt == 'again' or saidtxt == 'repeat':
         #saidtxt=jsaid[1]
